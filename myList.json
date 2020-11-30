@@ -1,0 +1,10 @@
+[
+    {"name": "Thanos", "id": "000", "type":"Pop Funko", "imgLocation": "thanos.png", "value": 7},
+    {"name": "Marvel", "id": "001", "type": "Pop Funko", "imgLocation": "marvel.jpg", "value": 5},
+    {"name": "Thor", "id": "002", "type": "Pop Funko", "imgLocation": "thor.jpeg", "value": 3},
+    {"name": "Millhouse", "id": "003", "type": "Pop Funko", "imgLocation": "millhouse.jpeg", "value": 9  },
+    {"name": "Elizabeth", "id": "004", "type": "Pop Funko", "imgLocation": "queen.jpg", "value": 3  }
+
+
+
+]

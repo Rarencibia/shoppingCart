@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="index.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="storeWrapper" class="storeWrapper">
+    </div>
+
+    <div>
+        <p id="totalValue"></p>
+    </div>
+
+
+
+
+
+    <script>
+
+        let storeWrapper = document.getElementById("storeWrapper");
+        let shoppingCart = {};
+
+
+        async function writeHTML() {
+            let getData = await fetch("myList.json");
+            let data = await getData.json();
+
+
+            for(let i = 0; i < data.length; i++){
+                let htmlWrapperDiv = document.getElementById("storeWrapper");
+
+                let div = document.createElement("div");
+                div.className = "shopItem";
+                div.setAttribute("id", "shopItem");
+
+                let img = document.createElement("img");
+                    img.className = "itemImg";
+                    img.src = data[i].imgLocation;
+                
+                let value = document.createElement("h1");
+                value.textContent = "$" + data[i].value;
+                value.className = "value";
+                value.setAttribute("id", "value");
+
+                let button = document.createElement("button");
+                button.innerHTML = "Add to Cart";
+                button.className = "button";
+                button.setAttribute("id", data[i].id);
+
+                button.addEventListener("click", (evt) => {
+                    // console.log(evt.target.id);
+                    var itemId = evt.target.id
+                    if (shoppingCart[itemId] == null){
+                        shoppingCart[itemId] = 0;
+                    }
+                    shoppingCart[itemId] = shoppingCart[itemId] + 1;
+                    console.log(shoppingCart);
+                    recalculate_total();
+                });
+
+                function recalculate_total(){
+                    var total = 0;
+
+                    for (id in shoppingCart){
+                        var item = data.find(x => x.id === id);
+
+                        // if (item){
+                            var count = shoppingCart[id];
+                            total = total + count * item.value;
+                        
+
+                    }
+                    document.getElementById("totalValue").innerHTML = total;
+                };
+
+
+
+                document.getElementById("storeWrapper").appendChild(div);
+                div.textContent = data[i].name + " " + data[i].type;
+
+                div.appendChild(img);
+                div.appendChild(value);
+                div.appendChild(button);
+
+
+
+            }
+
+            
+
+
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+        writeHTML();
+
+
+
+    </script>
+    <script src="index.js"></script>
+</body>
+</html>
